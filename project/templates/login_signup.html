@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Home</title>
+  <link rel="shortcut icon" href="https://ibb.co/eQTOZT"/>
 	<link rel="stylesheet" type="text/css" href="../static/css/login_signup.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script type="text/javascript" src="../static/js/login_signup.js"> </script>
@@ -13,6 +14,14 @@
   <center>
 
       <img src="../static/img/White.png" class="logo">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
   </center>
 
 <!--################################# Signup ################################-->
@@ -51,9 +60,9 @@
       <label for="Languages"><b>Languages You Teach In</b></label>
       <br>
       <form action="/action_page.php">
-        <input type="checkbox" name="languages" value="Arabic"> Arabic <br>
-        <input type="checkbox" name="languages" value="English"> English <br>
-        <input type="checkbox" name="languages" value="Hebrew"> Hebrew <br>
+        <input type="checkbox" name="languages_ar" value="Arabic"> Arabic <br>
+        <input type="checkbox" name="languages_en" value="English"> English <br>
+        <input type="checkbox" name="languages_hb" value="Hebrew"> Hebrew <br>
       </form>
       <br>
 
@@ -109,22 +118,20 @@
   <form class="modal-content animate" action="{{ url_for('users.login') }}" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="img_avatar2.png" alt="Avatar" class="avatar">
+      <img src="../static/img/avatar.png" alt="Avatar" class="avatar">
     </div>
 
     <div class="container">
-      <label for="email"><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" name="email" required>
-
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-        
-      <button type="submit">Login</button>
+      <form action="{{ url_for('users.login') }}" method="post">
+    {{ loginform.csrf_token }}
+    {{ loginform.username(placeholder="Email") }} 
+    {{ loginform.password(placeholder="Password") }}
+    <button class="btn btn-sm btn-success" type="submit">Log in</button>
+  </form>
       </div>
 
     <div class="container" style="background-color:#f1f1f1">
       <center> <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button> </center>
-      <span class="psw">Forgot <a href="#">password?</a></span>
     </div>
   </form>
 </div>

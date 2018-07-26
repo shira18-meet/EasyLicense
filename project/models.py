@@ -47,7 +47,7 @@ class Teacher(db.Model):
     area = db.Column(db.String)
     city = db.Column(db.String)
     description = db.Column(db.String)
-    cost = db.Column(db.String)
+    cost = db.Column(db.Integer)
     phone_num = db.Column(db.String)
     languages = db.Column(db.String)
     profile_picture = db.Column(db.String)
@@ -74,5 +74,11 @@ class Booking(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String)
     phone_num = db.Column(db.String)
-    teacher = db.Column(db.Integer)
+    teacher_id = db.Column(db.Integer, ForeignKey('users.id'))
     done = db.Column(db.Boolean)
+
+    def __init__(self,name,phone_num,teacher_id,done):
+        self.name=name
+        self.phone_num=phone_num
+        self.teacher_id=teacher_id
+        self.done=done

@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script type="text/javascript" src="../static/js/script.js"> </script>
 		<title>
-			EasyLicense	
+			Profile
 		</title>
 	</head>
 	<body class="profile_page">
+<a href="feed" id="feed_btn">Feed</a>
+		<center><img src="../static/img/Small.png" class="logo"></center>
+
+
 		<section id="profile_container">
 			<div id="side_profile" align="left">
 				<img src="{{teacher.profile_picture}}" id="profile_picture">
-	<body>
-		<a href="feed" id="feed_btn">Feed</a>
 		<center>
-			<img src="../static/img/Transparent.png" class="logo">
 			<br>
-			<p><i> {{teacher.name}}</i> </p>
+			<p align="center"><i> {{teacher.name}}</i> </p>
 			<br>
 			<table>
-				<tr>
-					<th> <u> Phone number:</u></th> 
-					<td> {{teacher.phone_num}} </td>
-				</tr>
 				<tr> 
 
 					<th> <u> Area:</u></th> 
@@ -39,7 +39,48 @@
 					<td> {{teacher.car_type}} </td>
 				</tr>
 			</table>
-			<br> 
+
+			<br>
+
+
+			<!-- Trigger/Open The Modal -->
+
+			
+
+			<button id="myBtn" class="book_btn">Book a Lesson</button>
+
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+
+				<!-- Modal content -->
+				<div class="modal-content">
+					<div class="modal-header">
+	  					<span class="close">&times;</span>
+	  					<h3>Book a Lesson!</h3>
+					</div>
+					<div class="modal-body">
+						<br>
+						<form name="booking_form" id="book">
+							Full Name<br>
+							<input type="text" name="name" placeholder="Full Name">
+							<br>
+							<br>
+							Phone Number<br>
+							<input type="text" name="num" placeholder="Phone Number">
+							<br>
+							<input type="text" name="teacher" value="{{teacher.id}}" style="visibility: hidden;">
+							<br>
+							<input type="submit" name="submit" onclick="book()" value="Book" class="book_btn">
+						</form>
+					</div>
+					<div class="modal-footer">
+						<h3>The right guidance with EasyLicense!</h3>
+					</div>
+				</div>
+
+			</div>
+
+			
 		</div>
 		<div id="main_profile">
 			<h3 id="profile_name">
@@ -54,12 +95,8 @@
 				</p>
 			</div>
 			<br>
-			<div id="profile_goals_needs">
-			<h4 class="profile_title">
-			GOALS
-			</h4>	
-			</div>
 		</div>
 	</section>
+</center>
 	</body>
 </html>

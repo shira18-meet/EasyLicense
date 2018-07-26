@@ -9,7 +9,9 @@ from project import db
 from project.forms import RegisterForm, LoginForm
 from project.models import User,Teacher,Booking
 
+import firebase_admin
 
+<<<<<<< HEAD
 import firebase_admin, firebase_admin.auth, firebase_admin.db, firebase_admin.storage
 
 import json
@@ -22,6 +24,10 @@ pprint(data)
 
 cred = firebase_admin.credentials.Certificate('easylicense-e9174-firebase-adminsdk-tfk2q-14c4144edf.json')
 default_app = firebase_admin.initialize_app(cred)
+=======
+#cred = firebase_admin.credentials.Certificate('easylicense-e9174-firebase-adminsdk-tfk2q-14c4144edf.json')
+#app = app = firebase_admin.initialize_app(cred)
+>>>>>>> a065f1227cc6d7fe6e74fb47b81d337ddaa1bdba
 
 users_bp = Blueprint('users', __name__)
 
@@ -38,7 +44,7 @@ def register():
         city=request.form.get('city')
         fee=request.form.get('fee')
         description=request.form.get('description')
-        area2=request.form.get('area')
+        area=request.form.get('area')
         phonenum=request.form.get('phonenum')
         car_type=request.form.get('car_type')
         license_num=request.form.get('license_num')
@@ -54,11 +60,15 @@ def register():
                 db.session.add(user)
                 db.session.commit()
 
+<<<<<<< HEAD
 
                 teacher=Teacher(user.id,name,area2,city,description,fee,phonenum,languages,profilepic,car_type,license_num)
                 f_teacher={'id':teacher.id,'user_id':teacher.user_id,'name':teacher.name,'area':teacher.area,'city':teacher.city,'description':teacher.description,'cost':teacher.cost,'phone_num':teacher.phone_num,'languages':teacher.languages,'profile_picture':teacher.profile_picture,'car_type':teacher.car_type,'license_num':teacher.license_num}
                 firebase_admin.db.Reference.child("teachers").child(firebase_admin.auth.UserInfo.uid).set(f_teacher)
 
+=======
+                teacher=Teacher(user.id,name,area,city,description,fee,phonenum,languages,profilepic,car_type,license_num)
+>>>>>>> a065f1227cc6d7fe6e74fb47b81d337ddaa1bdba
                 db.session.add(teacher)
                 db.session.commit()
                 login_user(user, remember=True)
@@ -75,11 +85,11 @@ def register():
 
 @users_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm(request.form)
+    loginform = LoginForm(request.form)
     if request.method == 'POST':
-        if form.validate_on_submit():
-            email = email = request.form.get('email')
-            password = email = request.form.get('password')
+        if loginform.validate_on_submit():
+            email = request.form.get('username')
+            password = request.form.get('password')
             user = User.query.filter_by(email=email).first()
             if user is None or not user.check_password(password):
                 return Response("<p>Incorrect username or password</p>")
@@ -87,10 +97,16 @@ def login():
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
                 next_page = url_for('profile_template')
-            return redirect('profile_template')
+            return redirect(next_page)
         else:
             return Response("<p>invalid form</p>")
-    return render_template('login.html', form=form)
+    else:
+        return render_template('login.html', loginform=loginform)
+
+@users_bp.route('/login_signup')
+def login_signup():
+    loginform = LoginForm(request.form)
+    return render_template('login_signup.html',loginform=loginform)
 
 @users_bp.route('/logout')
 @login_required
