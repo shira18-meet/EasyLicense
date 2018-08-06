@@ -209,7 +209,8 @@ def student_signup():
                     db.session.commit()
                     login_user(user, remember=True)
                     return redirect(url_for('filters'))
-
+                else:
+                    return Response("<p>invalid form</p>")
         else:
             return Response("<p>invalid form</p>")
     else:
