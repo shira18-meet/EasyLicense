@@ -44,6 +44,15 @@
   margin-top: 0;
 }
 
+#stu_signup_container{
+  width: 50%;
+  min-height: 58em;
+  background-color: rgba(0,115,168,100);
+  padding: 20px;
+  text-align: center;
+  margin: auto;
+  margin-top: 0;
+}
 #sort_bar{
   word-spacing: 2em;
 }
@@ -248,11 +257,12 @@ font-weight: bold;
 }
 .edit_button{
   background-color:rgb(31,122,140);
-  width:120px;
-  height:40px;
+  width:8em;
+  height:2.8em;
   border: none;
   color: white;
-  border-radius: 5%;   
+  border-radius: 5%; 
+  padding-bottom: 5%;  
 }
 .edit_link{ 
   background-color:rgb(31,122,140);
@@ -511,15 +521,12 @@ a:hover{
   text-decoration: none;
 }
 #contact_btn{
-  width: 30%;
-  border: none; 
-  outline: 0;
-  display: inline-block;
+  width: 90%;
   padding: 8px;
-  margin-bottom: 2%; 
-  text-align: center; 
+  margin-bottom: 2%;  
   cursor: pointer; 
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  margin-right:5%; 
 }
 button#contact_btn > a{
   position: relative;

@@ -8,21 +8,21 @@ Sign up
 {% endblock %}
 
 {% block content %}   
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: 0%;">
-  <a class="navbar-brand" href="{{url_for('feed')}}" style="background-color: #f6f6f6">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: 0%;" align="right">
+  <a class="navbar-brand" href="{{url_for('feed')}}" style="background-color: #f6f6f6;">
         <img src="../static/img/logo.png" alt="logo" style="width: 12.5em;">
       </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarText" style="background-color: #0073a8">
+  <div class="collapse navbar-collapse" id="navbarText" style="background-color: #0073a8;">
     {% include 'social-media-links.html' %}
   </div>
 </nav>
 
 
 <br>
-<div class="signup_container">
+<div id="stu_signup_container">
 
 <form action="{{ url_for('users.student_signup') }}" method="POST">
 
@@ -56,7 +56,7 @@ Sign up
       <input type="password" placeholder="Repeat Password" name="password2" class="bars input" required>
     </span>
 
-      <button type="submit" class="signup-btn btn btn-success" style="text-align: center; margin-left: 37%;">Sign Up</button>
+      <button type="submit" class="signup-btn btn btn-success" style="text-align: center; margin-right: 10%;">Sign Up</button>
 
 </form>
 </div>
