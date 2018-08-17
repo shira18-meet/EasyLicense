@@ -9,6 +9,19 @@ from project import db
 from project.forms import RegisterForm, LoginForm
 from project.models import *
 
+import firebase_admin, firebase_admin.auth, firebase_admin.db, firebase_admin.storage
+
+import json
+from pprint import pprint
+
+with open('google-services.json') as f:
+    data = json.load(f)
+
+pprint(data)
+
+cred = firebase_admin.credentials.Certificate('google-services.json')
+default_app = firebase_admin.initialize_app(cred)
+
 users_bp = Blueprint('users', __name__)
 
 @users_bp.route('/')
@@ -53,23 +66,24 @@ def register():
     form = RegisterForm(request.form)
 
     if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('psw')
-        password2= request.form.get('psw-repeat')
-        fname= request.form.get('fname')
-        lname= request.form.get('lname')
+        email = request.form.get('username')
+        password = request.form.get('password')
+        password2= request.form.get('confirm')
+        #fname= request.form.get('fname')
+        #lname= request.form.get('lname')
         if password== password2:
             user = User.query.filter_by(email=email).first()
             if user is None:
-                user=User(email,password,"teacher")
+                user=User(email,password,"type")
+                firebase_admin.auth.create_user(email=email,password=password)
                 db.session.add(user)
                 db.session.commit()
-                teacher=Teacher(user.id,fname,lname,"undefined yet","undefined yet",0,"undefined yet","","https://static.thenounproject.com/png/214280-200.png","")
-                db.session.add(teacher)
-                db.session.commit()
+                #teacher=Teacher(user.id,"teacher","teacher","undefined yet","undefined yet",0,"undefined yet","","https://static.thenounproject.com/png/214280-200.png","")
+                #db.session.add(teacher)
+                #db.session.commit()
                 login_user(user, remember=True)
 
-                return redirect(url_for('edit_profile',teacher_id=teacher.id))
+                return redirect(url_for('account_type'))
 
         else:
             return Response("<p>invalid form</p>")
@@ -77,6 +91,21 @@ def register():
     return render_template('feed.html', form=form)
 
 
+@users_bp.route('/<acc_type>/<int:user_id>')
+@login_required
+def set_type(user_id,acc_type):
+    user = User.query.filter_by(id=user_id).first()
+    user.account_type = acc_type
+    if acc_type == "teacher":
+        account=Teacher(user.id,"teacher","teacher","undefined yet","undefined yet",0,"undefined yet","","https://static.thenounproject.com/png/214280-200.png","")
+    else:
+        account=Student(user.id,"student","student","0000000","","",0,0,"")
+    db.session.add(account)
+    db.session.commit()
+    if acc_type == "teacher":
+        return redirect(url_for('edit_profile',teacher_id=account.id))
+    else:
+        return redirect(url_for('filters'))
 
 
 @users_bp.route('/logout')

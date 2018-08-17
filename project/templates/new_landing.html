@@ -15,7 +15,7 @@
 	<div class="login_signup">
 		<center>
 			<h1 style="font-family: 'ABeeZee', sans-serif; color: ##37393a;" id="login_signup_title">Login</h1>
-			<form action="{{ url_for('users.login') }}" method="post"  id="login">
+			<form action="{{ url_for('users.login') }}" method="POST"  id="login">
 				<center>
 				    {{ loginform.csrf_token }}
 				    {{ loginform.username(placeholder="Username") }}<br> 
@@ -23,7 +23,7 @@
 				    <button class="btn btn-sm btn-success" type="submit" style="font-family: 'ABeeZee', sans-serif; background: #37393a; color: white; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">Log in</button><br>
 				</center>
 	  		</form>
-	  		<form action="{{ url_for('users.register') }}" method="post" style="display: none;" id="signup">
+	  		<form action="{{ url_for('users.register') }}" method="POST" style="display: none;" id="signup">
 			    {{ signupform.csrf_token }}
 			    {{ signupform.username(placeholder="Username") }}<br> 
 			    {{ signupform.password(placeholder="Password") }}<br>
