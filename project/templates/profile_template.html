@@ -98,7 +98,27 @@ Your Profile {{teacher.name}}
 			<br><br>
 
 			<br>
-			{% for request in requests %}
+			<h3 id="profile_name">Done Requests</h3>
+			<br>
+			{% for request in done_requests %}
+				<table id="booking_table">
+					<tr>
+						<th class="booking_table_title" style="text-align: left;">
+						Student: {{request.student_fname}}
+						</th>
+					</tr>
+					<tr>
+						<th align="left"><a href="/student_info/{{request.student_id}}"><button class="book_btn">Show information</button></a></th>
+					</tr>
+
+				</table>
+				<br><br>
+			{% endfor %}
+
+
+			<h3 id="profile_name">Not Done Requests</h3>
+			<br>
+			{% for request in notdone_requests %}
 				<table id="booking_table">
 					<tr>
 						<th class="booking_table_title" style="text-align: left;">
@@ -111,12 +131,10 @@ Your Profile {{teacher.name}}
 						</th>
 					</tr>
 					<tr>
-						<th align="left"><a href="/student_info/{{request.student_id}}"><button class="book_btn">Show information</button></a></th>
+						<th align="left"><a href="/student_info/{{request.student_id}}"><button class="book_btn">Pay and Show information</button></a></th>
 					</tr>
-
 				</table>
 				<br><br>
-				
 			{% endfor %}
 		</div>
 		</div>

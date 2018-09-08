@@ -430,13 +430,15 @@ font-weight: bold;
     border-radius: 12px;
 }
 #booking_table{
-  border: 3px solid #37393a;
-  width: 500px;
-  min-height: 200px; 
+  border-radius: 10px;
+  border: 1.5px solid #37393a;
+  min-width: 23em;
+  min-height: 12em; 
 }
 .booking_table_header{
   color: rgb(0, 115, 168);
   font-size: 16px;
+
 }
 
 .booking_table_title{

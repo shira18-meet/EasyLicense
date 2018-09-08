@@ -17,7 +17,8 @@ def index():
     ongoing="no"
     if current_user.is_authenticated:
         if current_user.account_type=="student":
-            student_id=User.query,filter_by(user_id=current_user.id).first().id
+            student=User.query.filter_by(user_id=current_user.id).first()
+            student_id=student.id
             sturequest=Request.query.filter_by(student_id=student_id).first()
             if sturequest is None:
                 pass
