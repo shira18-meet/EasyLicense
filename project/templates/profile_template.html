@@ -10,7 +10,7 @@ Your Profile {{teacher.name}}
 {% block content %} 
 	
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{{url_for('feed')}}" style="background-color: #f6f6f6">
+  <a class="navbar-brand" href="{{url_for('profile_template')}}" style="background-color: #f6f6f6">
         <img src="../static/img/logo.png" alt="logo" style="width: 12.5em;">
       </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +82,7 @@ Your Profile {{teacher.name}}
 
 
 			<h3 id="profile_name">
-				Your Profile: {{teacher.name}}</h3>
+				Your Profile: {{teacher.fname}}</h3>
 				<br>
 			
 			<h4 class="profile_title">
@@ -111,7 +111,7 @@ Your Profile {{teacher.name}}
 						</th>
 					</tr>
 					<tr>
-						<th align="left"><a href="https://www.paypal.com"><button class="book_btn">Press to pay and revel this student's information</button></a></th>
+						<th align="left"><a href="/student_info/{{request.student_id}}"><button class="book_btn">Show information</button></a></th>
 					</tr>
 
 				</table>
