@@ -99,7 +99,11 @@ function wrong() {
 
 	{% if current_user.is_authenticated %}
 		{% if current_user.account_type == "student" %}
-			<a href="{{url_for('feed')}}"><button class="btn"><h2>I'm a Student</h2></button></a>
+      {% if ongoing == "no" %}
+        <a href="{{url_for('feed')}}"><button class="btn"><h2>I'm a Student</h2></button></a>
+      {%else%}
+        <a href="{{url_for('profile',teacher_id=ongoing)}}"><button class="btn"><h2>I'm a Student</h2></button></a>
+      {%endif%}
 		{%else%}
 			<button onclick="wrong()" class="btn" style="margin-bottom: 25px;"><h2>I'm a Student</h2></button>
 		{%endif%}

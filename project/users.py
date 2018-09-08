@@ -14,7 +14,19 @@ users_bp = Blueprint('users', __name__)
 @users_bp.route('/')
 def index():
     loginform = LoginForm(request.form)
-    return render_template('index.html',loginform=loginform)
+    ongoing="no"
+    if current_user.is_authenticated:
+        if current_user.account_type=="student":
+            student_id=User.query,filter_by(user_id=current_user.id).first().id
+            sturequest=Request.query.filter_by(student_id=student_id).first()
+            if sturequest is None:
+                pass
+            elif sturequest.done==False:
+                pass
+            else:
+                ongoing=sturequest.teacher_id
+
+    return render_template('index.html',loginform=loginform, ongoing=ongoing)
 
 
 @users_bp.route('/login', methods=['GET', 'POST'])
@@ -33,7 +45,20 @@ def login():
                 if current_user.account_type=="teacher":
                     next_page = url_for('profile_template')
                 else:
-                    next_page = url_for('feed')
+                    student=Student.query.filter_by(user_id=current_user.id).first()
+                    print(student)
+                    studentreqests=Request.query.filter_by(student_id=student.id).all()
+                    print(studentreqests)
+                    studentreq=None
+                    for i in studentreqests:
+                        if i is not None:
+                            if i.done==True:
+                                studentreq=i
+                    print(studentreq)
+                    if studentreq is None:
+                        next_page = url_for('feed')
+                    else:
+                        next_page = url_for('profile',teacher_id=studentreq.teacher_id, auth=1)
             return redirect(next_page)
         else:
             return Response("<p>invalid form</p>")

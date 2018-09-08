@@ -152,8 +152,11 @@ def edit_profile(teacher_id):
 @app.route('/student_info/<int:st_id>')
 def student_info(st_id):
 	this_student=Student.query.filter_by(id=st_id).first()
-	done=Request.query.filter_by(student_id=this_student.id).first().done
-	return render_template('student_info.html',student=this_student,done=True)
+	isrequest=Request.query.filter_by(student_id=this_student.id).first()
+	#for now, all request are true once teacher sees them
+	isrequest.done=True
+	db.session.commit()
+	return render_template('student_info.html',student=this_student,done=isrequest.done)
 
 
 
@@ -176,8 +179,15 @@ def filters():
 
 ##	return render_template('filter_modal.html', student=student, all_cities=all_cities)##
 
-@app.route('/profile/<int:teacher_id>')
-def profile(teacher_id):
+@app.route('/profile/<int:teacher_id>/<int:auth>')
+def profile(teacher_id,auth):
+	if auth==1:
+		done=True
+	else:
+		done=False
 	this_teach=Teacher.query.filter_by(id=teacher_id).first()
 	user=User.query.filter_by(id=current_user.id).first()
-	return render_template('small_profile.html', teacher=this_teach,current_user=user)
+	return render_template('small_profile.html', teacher=this_teach,current_user=user, done=done)
+
+
+

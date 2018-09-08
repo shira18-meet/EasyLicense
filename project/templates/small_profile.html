@@ -31,11 +31,11 @@
   </div>
 </nav>
 
-		<div class="row" style="background-color: rgb(246,246,246);">
-			<div class="col-md-4" style="background-color: rgb(246,246,246);">
-				<div id="side_profile">
-				<img src="{{teacher.profile_picture}}" id="profile_picture">
-		<center>
+<div class="row" style="background-color: rgb(246,246,246);">
+	<div class="col-md-4" style="background-color: rgb(246,246,246);">
+		<div id="side_profile">
+			<img src="{{teacher.profile_picture}}" id="profile_picture">
+			<center>
 			<br>
 			<p align="center"><i> {{teacher.fname}}</i> </p>
 			<br>
@@ -60,55 +60,19 @@
 					<td data-toggle="tooltip" data-placement="top"> {{teacher.gearbox | truncate(25)}} </td>
 				</tr>
 			</table>
-
 			<br>
-
-
-			<!-- Trigger/Open The Modal -->
-
-			<!-- The Modal -->
-			<div id="myModal" class="modal">
-
-				<!-- Modal content -->
-				<!--
-				<div class="modal-content">
-					<div class="modal-header">
-	  					<span class="close">&times;</span>
-	  					<h3>Book a Lesson!</h3>
-					</div>
-					<div class="modal-body">
-						<br>
-						<form name="booking_form" id="book" action="{{ url_for( 'users.make_request' , teacher_id=teacher.id ) }}" method="POST">
-							First Name<br>
-							<input type="text" name="studentfname" placeholder="First Name">
-							<br>
-							<br>
-							Last Name<br>
-							<input type="text" name="studentlname" placeholder="Last Name">
-							<br><br>
-							Phone Number<br>
-							<input type="text" name="studentnum" placeholder="Phone Number">
-							<br>
-							<br>
-							<input type="submit" name="submit" value="Book" class="book_btn">
-						</form>
-					</div>
-					<div class="modal-footer">
-						<h3 style="text-align: center;">The right guidance with EasyLicense!</h3>
-					</div>
-				</div>
-
-			</div>
-			</center> 
-		-->
 		</div>
 	</div>
 		
-		
-		<div class="col-md-8" style="background-color: rgb(246,246,246);">
-			<div id="main_profile">
-			<h3 id="profile_name">
-				{{teacher.name}}</h3>
+	<div class="col-md-8" style="background-color: rgb(246,246,246);">
+		<div id="main_profile">
+			{%if done ==True%}
+				<h3 id="profile_name">
+					This is your teacher : {{teacher.fname}} {{teacher.lname}}</h3>
+			{%else%}
+				<h3 id="profile_name">
+				{{teacher.fname}}</h3>
+			{%endif%}
 			<br>
 			<h4 class="profile_title">
 			About
@@ -120,7 +84,7 @@
 			</div>
 			<br>
 			<form action="{{url_for('users.make_request' ,teacher_id=teacher.id)}}">
-				<button id="myBtn" class="book_btn" type="submit" >Connect {{current_user.id}}</button>
+				<button id="myBtn" class="book_btn" type="submit" >Connect</button>
 			</form>
 		</div>
 	 </div>
