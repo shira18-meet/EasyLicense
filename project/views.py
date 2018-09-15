@@ -135,8 +135,8 @@ def profile_template():
 	t=Teacher.query.filter_by(user_id=current_user.id).first()
 	this_teach_id=t.id
 	all_cities = City.query.all()
-	done_requests=Request.query.filter_by(teacher_id=t.id,done=True)
-	notdone_requests=Request.query.filter_by(teacher_id=t.id,done=False)
+	done_requests=Request.query.filter_by(teacher_id=t.id,done=True).all()
+	notdone_requests=Request.query.filter_by(teacher_id=t.id,done=False).all()
 	return render_template('profile_template.html',teacher=t,user=current_user, all_cities=all_cities,done_requests=done_requests,notdone_requests=notdone_requests)
 
 
